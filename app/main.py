@@ -13,7 +13,7 @@ def product_list():
 
 @app.route("/products/<int:category_id>")
 def product_by_cat_id(category_id):
-    return render_template("products.html")
+    return render_template("products.html", products=dao.read_products(category_id))
 
 if __name__ == "__main__":
     app.run(debug=True)

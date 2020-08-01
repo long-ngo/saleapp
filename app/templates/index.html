@@ -12,8 +12,8 @@
     <h1>BÁN HÀNG TRỰC TUYẾN</h1>
     <ul>
         <li><a href="{{ url_for('product_list') }}">Tất cả</a></li>
-        <li><a href="#">Điện thoại di dộng</a></li>
-        <li><a href="#">Máy tính bảng</a></li>
+        <li><a href="{{ url_for('product_by_cat_id', category_id=1) }}">Điện thoại di dộng</a></li>
+        <li><a href="{{ url_for('product_by_cat_id', category_id=2) }}">Máy tính bảng</a></li>
     </ul>
 </body>
 </html>
