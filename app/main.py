@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, request
 
 from app import app, dao
 
@@ -9,11 +9,11 @@ def index():
 
 @app.route("/products")
 def product_list():
-    return render_template("products.html", products=dao.read_products())
+    return render_template("products.html", products=dao.read_products(request.args.get("keyword")))
 
 @app.route("/products/<int:category_id>")
 def product_by_cat_id(category_id):
-    return render_template("products.html", products=dao.read_products(category_id))
+    return render_template("products.html", products=dao.read_products_by_category_id(category_id))
 
 if __name__ == "__main__":
     app.run(debug=True)
