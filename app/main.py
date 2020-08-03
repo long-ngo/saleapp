@@ -9,7 +9,12 @@ def index():
 
 @app.route("/products")
 def product_list():
-    return render_template("products.html", products=dao.read_products(request.args.get("keyword")))
+    req = request.args
+    return render_template("products.html", products=dao.read_products(
+        req.get("keyword"),
+        req.get("from_price"),
+        req.get("to_price")
+        ))
 
 @app.route("/products/<int:category_id>")
 def product_by_cat_id(category_id):
