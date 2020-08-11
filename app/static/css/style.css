@@ -1,8 +1,11 @@
-body {
-    background: lightblue;
+* {
     font-family: Tahoma;
 }
 
-h1 {
-    text-align: center;
+body {
+    background: lightblue;
+}
+
+table {
+    border-collapse: collapse;
 }
