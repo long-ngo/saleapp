@@ -26,9 +26,17 @@
     {
         "id": 4,
         "name": "xz2",
-        "description": "hãng sony",
-        "price": 15000000.0,
+        "description": "hãng sony nhật",
+        "price": 20000000.0,
         "images": "https://hcm.clickbuy.com.vn/uploads/2019/07/avt-xz2xanh.png",
+        "category_id": 1
+    },
+    {
+        "id": 5,
+        "name": "xz3",
+        "description": "sản phẩm mới",
+        "price": 50000000.0,
+        "images": "https://cdn.tgdd.vn/Products/Images/42/174094/sony-xperia-xz3-1-400x460.png",
         "category_id": 1
     }
 ]

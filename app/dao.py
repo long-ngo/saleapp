@@ -14,8 +14,15 @@ def read_products(keyword=None, from_price=None, to_price=None):
                 if float(from_price) <= product["price"] and product["price"] <= float(to_price)]
         return products
 
-def read_products_by_id(category_id):
+def read_products_by_category_id(category_id):
     return [product for product in read_products() if product["category_id"] == category_id]
+
+def read_products_by_id(product_id):
+    products = read_products()
+    for product in products:
+        if product["id"] == int(product_id):
+            return product
+    return None
 
 def add_products(name, description, price, images, category_id):
     products = read_products()
@@ -27,9 +34,21 @@ def add_products(name, description, price, images, category_id):
         "images": images,
         "category_id": int(category_id)
     })
-    return update_products(products)
+    return write_products(products)
     
-def update_products(products):
+def update_products(product_id, name, description, price, images, category_id):
+    products = read_products()
+    for product in products:
+        if product["id"] == int(product_id):
+            product["name"] = name
+            product["description"] = description
+            product["price"] = float(price)
+            product["images"] = images
+            product["category_id"] = int(category_id)
+            break
+    return write_products(products)
+
+def write_products(products):
     try:
         with open(os.path.join(app.root_path, "data/products.json"), "w", encoding="utf-8") as f:
             json.dump(products, f, ensure_ascii=False, indent=4)
@@ -41,4 +60,8 @@ def update_products(products):
 
 def read_categories():
     with open(os.path.join(app.root_path, "data/categories.json"), encoding="utf-8") as f:
+        return json.load(f)
+
+def read_users():
+    with open(os.path.join(app.root_path, "data/users.json"), encoding="utf-8") as f:
         return json.load(f)
