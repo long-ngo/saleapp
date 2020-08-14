@@ -24,6 +24,15 @@ def read_products_by_id(product_id):
             return product
     return None
 
+def write_products(products):
+    try:
+        with open(os.path.join(app.root_path, "data/products.json"), "w", encoding="utf-8") as f:
+            json.dump(products, f, ensure_ascii=False, indent=4)
+            return True
+    except expression as ex:
+        print(ex)
+        return False
+
 def add_products(name, description, price, images, category_id):
     products = read_products()
     products.append({
@@ -48,15 +57,13 @@ def update_products(product_id, name, description, price, images, category_id):
             break
     return write_products(products)
 
-def write_products(products):
-    try:
-        with open(os.path.join(app.root_path, "data/products.json"), "w", encoding="utf-8") as f:
-            json.dump(products, f, ensure_ascii=False, indent=4)
-            return True
-    except expression as ex:
-        print(ex)
-        return False
-    
+def delete_product(product_id):
+    products = read_products()
+    for idx, product in enumerate(products):
+        if product["id"] == int(product_id):
+            del products[idx]
+            break
+    return write_products(products)
 
 def read_categories():
     with open(os.path.join(app.root_path, "data/categories.json"), encoding="utf-8") as f:
