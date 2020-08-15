@@ -1,5 +1,6 @@
 import json
 import os
+import hashlib
 
 from app import app
 
@@ -72,3 +73,10 @@ def read_categories():
 def read_users():
     with open(os.path.join(app.root_path, "data/users.json"), encoding="utf-8") as f:
         return json.load(f)
+
+def validate_user(username, password):
+    users = read_users()
+    password = str(hashlib.md5(password.strip().encode("utf-8")).hexdigest())
+    for user in users:
+        if user["username"] == username.strip() and user["password"] == password:
+            return user
