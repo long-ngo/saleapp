@@ -9,29 +9,32 @@
     <link href="{{ url_for('static', filename='/css/style.css') }}" rel="stylesheet">
     <script>
         function deleteProduct(productId) {
-            fetch("/api/products/" + productId, {
-                method: "delete"
-            }).then(res => res.json()
-            ).then(data => {
-                product = document.getElementById("product" + data.data.product_id)
-                product.style.display = "none"
+            let cf = confirm("Bạn có chắc muốn xóa sản phẩm này?")
+            if (cf) {
+                fetch("/api/products/" + productId, {
+                    method: "delete"
+                }).then(res => res.json()
+                ).then(data => {
+                    product = document.getElementById("product" + data.data.product_id)
+                    product.style.display = "none"
+                }).catch(err => console.error(err))
             }
-            ).catch(err => console.error(err))
         }
     </script>
 </head>
 <body>
     <div class="container">
         <h1 class="text-center">QUẢN LÝ SẢN PHẨM</h1>
+        <a href="{{ url_for('export_product') }}">XUẤT DANH SÁCH SẢN PHẨM</a>
         <form action="{{ url_for('product_list') }}">
             <div class="form-group">
-                <label for="keywork">Tìm theo tên</label>
-                <input type="text" name="keyword" id="keyword" placeholder="Nhập từ khóa cần tìm" class="form-control">
+                <label for="kw">Tìm theo tên</label>
+                <input type="text" name="keyword" id="kw" placeholder="Nhập từ khóa cần tìm" class="form-control">
             </div>
             <div class="form-group">
-                <label for="form-price">Tìm theo giá</label>
-                <input type="number" name="from_price" id="form_price" placeholder="Giá bắt đầu" class="form-control">
-                <input type="number" name="to_price" id="to_price" placeholder="Giá kết thúc" class="form-control">
+                <label for="fp">Tìm theo giá</label>
+                <input type="number" name="from_price" id="fp" placeholder="Giá bắt đầu" class="form-control">
+                <input type="number" name="to_price" id="tp" placeholder="Giá kết thúc" class="form-control">
             </div>
             <div>
                 <input type="submit" value="Tìm" class="btn btn-danger">

@@ -1,8 +1,8 @@
 import hashlib
 
-from flask import redirect, render_template, request, url_for, jsonify
+from flask import jsonify, redirect, render_template, request, url_for, send_file
 
-from app import app, dao
+from app import app, dao, utils
 
 
 @app.route("/")
@@ -56,6 +56,10 @@ def delete_product(product_id):
         "status": 500,
         "message": "Failed"
     })
+
+@app.route("/products/export")
+def export_product():
+    return send_file(utils.export_csv())
 
 @app.route("/login", methods=["get", "post"])
 def login():
