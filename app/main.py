@@ -7,6 +7,14 @@ from flask import (jsonify, redirect, render_template, request, send_file,
 from app import app, dao, utils
 
 
+def login_required(f):
+    @wraps(f)
+    def check(*args, **kwargs):
+        if not session.get("user"):
+            return redirect(url_for("login", next=request.url))
+        return f(*args, **kwargs)
+    return check
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -73,6 +81,8 @@ def login():
         user = dao.validate_user(username=username, password=password)
         if user:
             session["user"] = user
+            if "next" in request.args:
+                return redirect(request.args["next"])
             return redirect(url_for("index"))
         else:
             err_msg = "Đăng nhập không thành công"
@@ -82,14 +92,6 @@ def login():
 def logout():
     del session["user"]
     return redirect(url_for("index"))
-
-def login_required(f):
-    @wraps(f)
-    def check(*args, **kwargs):
-        if not session.get("user"):
-            return redirect(url_for("login", next=request.url))
-        return f(*args, **kwargs)
-    return check
 
 if __name__ == "__main__":
     app.run(debug=True)

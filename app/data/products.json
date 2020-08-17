@@ -3,7 +3,7 @@
         "id": 1,
         "name": "iPhone 7 Plus",
         "description": "Apple, 32GB, RAM: 3GB, iOS13",
-        "price": 17000000,
+        "price": 17000000.0,
         "images": "https://cdn.tgdd.vn/Products/Images/42/78124/iphone-7-plus-gold-400x460-400x460.png",
         "category_id": 1
     },
