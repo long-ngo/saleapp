@@ -1,4 +1,5 @@
 import hashlib
+from functools import wraps
 
 from flask import (jsonify, redirect, render_template, request, send_file,
                    session, url_for)
@@ -21,6 +22,7 @@ def product_by_category_id(category_id):
         products=dao.read_products_by_category_id(category_id=category_id))
 
 @app.route("/products/add", methods=["GET", "POST"])
+@login_required
 def add_or_update_product():
     product_id = request.args.get("product_id")
     product = None
@@ -80,6 +82,14 @@ def login():
 def logout():
     del session["user"]
     return redirect(url_for("index"))
+
+def login_required(f):
+    @wraps(f)
+    def check(*args, **kwargs):
+        if not session.get("user"):
+            return redirect(url_for("login", next=request.url))
+        return f(*args, **kwargs)
+    return check
 
 if __name__ == "__main__":
     app.run(debug=True)

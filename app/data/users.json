@@ -3,9 +3,14 @@
     "name": "Nguyễn Văn A",
     "username": "vana",
     "password": "e10adc3949ba59abbe56e057f20f883e"
-   }, {
+    }, {
     "id": 2,
     "name": "Dương Ngọc B",
     "username": "ngocb",
     "password": "96e79218965eb72c92a549dd5a330112"
+    }, {
+    "id": 3,
+    "name": "admin",
+    "username": "admin",
+    "password": "81dc9bdb52d04dc20036dbd8313ed055"
 }]
