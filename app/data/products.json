@@ -22,13 +22,5 @@
         "price": 24000000.0,
         "images": "https://cdn.tgdd.vn/Products/Images/42/206176/samsung-galaxy-note-10-plus-blue-400x460.png",
         "category_id": 1
-    },
-    {
-        "id": 4,
-        "name": "xz2",
-        "description": "sony nhật 64gb 4gb ram",
-        "price": 10000000.0,
-        "images": "https://cdn.tgdd.vn/Products/Images/42/146014/sony-xperia-xz2-2-400x460.png",
-        "category_id": 1
     }
 ]

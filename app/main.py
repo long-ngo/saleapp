@@ -93,5 +93,24 @@ def logout():
     del session["user"]
     return redirect(url_for("index"))
 
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if session.get("user"):
+        return redirect(url_for("index"))
+    err_msg = ""
+    if request.method == "POST":
+        name = request.form.get("name")
+        username = request.form.get("username")
+        password = request.form.get("password").strip()
+        confirm = request.form.get("confirm").strip()
+        if password != confirm:
+            err_msg = "Mật khẩu không khớp"
+        else:
+            if dao.add_user(name=name, username=username, password=password):
+                return redirect(url_for("login"))
+            else:
+                err_msg = "Đăng ký không thành công"
+    return render_template("register.html", err_msg=err_msg)
+
 if __name__ == "__main__":
     app.run(debug=True)

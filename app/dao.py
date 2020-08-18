@@ -74,6 +74,25 @@ def read_users():
     with open(os.path.join(app.root_path, "data/users.json"), encoding="utf-8") as f:
         return json.load(f)
 
+def write_users(users):
+    try:
+        with open(os.path.join(app.root_path, "data/users.json"), "w", encoding="utf-8") as f:
+            json.dump(users, f, ensure_ascii=False, indent=4)
+            return True
+    except expression as ex:
+        print(ex)
+        return False
+
+def add_user(name, username, password):
+    users = read_users()
+    users.append({
+        "id": len(users) + 1,
+        "name": name.strip(),
+        "username": username.strip(),
+        "password": str(hashlib.md5(password.strip().encode("utf-8")).hexdigest())
+    })
+    return write_users(users)
+
 def validate_user(username, password):
     users = read_users()
     password = str(hashlib.md5(password.strip().encode("utf-8")).hexdigest())
